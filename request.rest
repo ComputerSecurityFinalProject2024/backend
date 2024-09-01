@@ -1,13 +1,13 @@
 GET http://localhost:5000/
 
 ###
-POST http://localhost:5000/session/1/users.logIn
+POST http://localhost:5000/sessions/1/users:logIn
 Content-Type: application/json
 
 ###
-POST http://localhost:5000/session/1/services/12.authorize
+POST http://localhost:5000/sessions/1/services/12:authorize
 Content-Type: application/json
 
 ###
-POST http://localhost:5000/session/1/services/23.handshake
+POST http://localhost:5000/sessions/1/services/23:handshake
 Content-Type: application/json
