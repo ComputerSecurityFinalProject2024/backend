@@ -1,6 +1,41 @@
 GET http://localhost:5000/
 
 ###
+POST http://localhost:5000/sessions
+Content-Type: application/json
+
+{
+    "users": [
+        {
+            "name": "Alice",
+            "password": "123"
+        },
+        {
+            "name": "Bob",
+            "password": "456"
+        }
+    ],
+    "services": [
+        {
+            "name": "Service1"
+        },
+        {
+            "name": "Service2"
+        }
+    ],
+    "permissions": [
+        {
+            "users": ["Alice"],
+            "service": "Service1"
+        },
+        {
+            "users": ["Bob"],
+            "service": "Service2"
+        }
+    ]
+}
+
+###
 POST http://localhost:5000/sessions/1/users:logIn
 Content-Type: application/json
 

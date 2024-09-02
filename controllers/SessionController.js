@@ -1,10 +1,38 @@
+const createError = require("http-errors");
+const prisma = require("../prisma/prisma");
+
 class SessionController {
-	// [POST] /session
+	// [POST] /sessions
 	async create(req, res, next) {
-		res.status(200).json({ status: 200, message: "Session created" });
+		const { users, services, permissions } = req.body;
+		try {
+			const session = await prisma.session.create({
+				data: {
+					users: { create: users },
+					services: { create: services },
+				},
+			});
+			for (let i = 0; i < permissions.length; ++i) {
+				for (const user of permissions[i].users) {
+					await prisma.service.update({
+						where: {
+							name: permissions[i].service,
+						},
+						data: {
+							users: {
+								connect: { name: user },
+							},
+						},
+					});
+				}
+			}
+			res.status(201).json({ status: 201, session: session });
+		} catch (err) {
+			next(err);
+		}
 	}
 
-	// [PUT] /session/:sessionId
+	// [PUT] /sessions/:sessionId
 	async update(req, res, next) {
 		res.status(200).json({ status: 200, message: "Session updated" });
 	}
