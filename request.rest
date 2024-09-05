@@ -38,6 +38,10 @@ Content-Type: application/json
 ###
 POST http://localhost:5000/sessions/1/users:logIn
 Content-Type: application/json
+{
+    "name": "viet",
+    "password": "123"
+}
 
 ###
 POST http://localhost:5000/sessions/1/services/12:authorize
