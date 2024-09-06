@@ -38,14 +38,22 @@ Content-Type: application/json
 ###
 POST http://localhost:5000/sessions/1/users:logIn
 Content-Type: application/json
+
 {
-    "name": "viet",
-    "password": "123"
+    "username": "viet"
 }
 
 ###
-POST http://localhost:5000/sessions/1/services/12:authorize
+POST http://localhost:5000/sessions/1/services/1:authorize
 Content-Type: application/json
+
+{
+    "message": {
+        "tgt": "iczp%%pPXmRHaHIRzrumNe%%6393486113055",
+        "service_id": 1
+    },
+    "authenticator": "kknw%%9389487639064"
+}
 
 ###
 POST http://localhost:5000/sessions/1/services/23:handshake
