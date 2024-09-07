@@ -6,16 +6,16 @@ router.post("/", sessionController.create);
 
 router.put("/:sessionId", sessionController.update);
 
-router.post("/:sessionId/users([:])logIn", sessionController.logIn);
+router.post("/:sessionId/users/logIn", sessionController.logIn);
 
 // prettier-ignore
 router.post(
-	"/:sessionId/services/:serviceId\:authorize", sessionController.authorize
+	"/:sessionId/services/:serviceId/authorize", sessionController.authorize
 );
 
 // prettier-ignore
 router.post(
-	"/:sessionId/services/:serviceId\:handshake", sessionController.handshake
+	"/:sessionId/services/:serviceId/handshake", sessionController.handshake
 );
 
 module.exports = router;
