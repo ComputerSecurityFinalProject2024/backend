@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5000/sessions/1/users:logIn
+POST http://localhost:5000/sessions/1/users/logIn
 Content-Type: application/json
 
 {
@@ -44,17 +44,22 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5000/sessions/1/services/1:authorize
+POST http://localhost:5000/sessions/1/services/1/authorize
 Content-Type: application/json
 
 {
     "message": {
-        "tgt": "iczp%%pPXmRHaHIRzrumNe%%6393486113055",
+        "tgt": "bauz%%GxAfuOSJIyjhBvEQ%%0984176060687",
         "service_id": 1
     },
-    "authenticator": "kknw%%9389487639064"
+    "authenticator": "kiqt%%4473346088316"
 }
 
 ###
-POST http://localhost:5000/sessions/1/services/23:handshake
+POST http://localhost:5000/sessions/1/services/23/handshake
 Content-Type: application/json
+
+{
+    "client_to_server_ticket": "kueq%%7770351473278%%pJdZcVLZKgsaieci",
+    "authenticator": "egii%%7905100368338"
+}

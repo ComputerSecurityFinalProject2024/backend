@@ -2,12 +2,14 @@ const createError = require("http-errors");
 const prisma = require("../prisma/prisma");
 const authenticationServer = require("../lib/AuthenticationServer");
 const ticketGrantingServer = require("../lib/TicketGrantingServer");
+const serviceServer = require("../lib/ServiceServer");
 const hasher = require("../lib/HashHandler");
 require("dotenv").config();
 
-const TGS_session_key = 'wPWkODvBBJmxzqQg';
-const TGS_secret_key = 'AbcdefGhijklmnop';
-const Service_secret_key = 'QwertyUiopAsdfgh';
+
+const TGS_session_key = 'AAkgVupBvDXUmbcs';
+const TGS_secret_key = 'NnIwIniHyYPdktZq';
+const Service_secret_key = 'UVhsUzyDpdKTvJWt';
 
 class SessionController {
 	// [POST] /sessions
@@ -49,9 +51,9 @@ class SessionController {
 	async logIn(req, res, next) {
 		const { username } = req.body;
 		try {
-			console.log(hasher);
+			// console.log(hasher);
 			let asMessage = await authenticationServer.authenticateUser(username);
-			console.log('asMessage', asMessage);
+			// console.log('asMessage', asMessage);
 			if (asMessage == null) {
 				next(createError(401, "Invalid username"));
 			}
@@ -66,13 +68,13 @@ class SessionController {
 		}
 	}
 
-	// [POST] /sessions/:sessionId/services/:serviceId:authorize
+	// [POST] /sessions/:sessionId/services/:serviceId/authorize
 	async authorize(req, res, next) {
 		console.log(req.params);
 		const { message, authenticator } = req.body;
 		try {
-			console.log('message:', message);
-			console.log('authenticator:', authenticator);
+			// console.log('message:', message);
+			// console.log('authenticator:', authenticator);
 			const tgs_message = await ticketGrantingServer.validateTGT(message, authenticator);
 			
 			if (tgs_message == null) {
@@ -87,10 +89,21 @@ class SessionController {
 		}
 	}
 
-	// [POST] /sessions/:sessionId/services/:serviceId:handshake
+	// [POST] /sessions/:sessionId/services/:serviceId/handshake
 	async handshake(req, res, next) {
 		console.log(req.params);
-		res.status(200).json({ status: 200, message: "Service handshake" });
+		const { client_to_server_ticket, authenticator } = req.body;
+		try {
+			const service_message = await serviceServer.validateClientToServerTicket(client_to_server_ticket, authenticator);
+
+			if (service_message == null) {
+				next(createError(401, "Invalid client_to_server_ticket or authenticator"));
+			}
+
+			res.status(200).json({ status: 200, message: service_message });
+		} catch (err) {
+			next(err);
+		}
 	}
 }
 
