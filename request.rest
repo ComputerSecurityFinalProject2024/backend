@@ -40,7 +40,7 @@ POST http://localhost:5000/sessions/1/users/logIn
 Content-Type: application/json
 
 {
-    "username": "viet"
+    "username": "Bob"
 }
 
 ###

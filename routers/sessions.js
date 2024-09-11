@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/", sessionController.create);
 
-router.put("/:sessionId", sessionController.update);
+// router.put("/:sessionId", sessionController.update);
 
 router.post("/:sessionId/users/logIn", sessionController.logIn);
 
